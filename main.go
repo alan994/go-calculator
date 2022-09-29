@@ -25,7 +25,6 @@ func main() {
 	router.GET("/multiply/:x/:y", multiply)
 	router.GET("/divide/:x/:y", divide)
 
-
 	router.Run("localhost:8080")
 
 }
@@ -49,7 +48,8 @@ func add(c *gin.Context) {
 	// Call business logic
 	response, error := services.Add(x, y)
 	if error != nil {
-		c.IndentedJSON(http.StatusBadRequest, error);
+		c.IndentedJSON(http.StatusBadRequest, gin.H{ "message": error.Error() });
+		return
 	}
 
 	// Return result
@@ -75,7 +75,8 @@ func subtract(c *gin.Context) {
 	// Call business logic
 	response, error := services.Subtract(x, y)
 	if error != nil {
-		c.IndentedJSON(http.StatusBadRequest, error);
+		c.IndentedJSON(http.StatusBadRequest, gin.H{ "message": error.Error() });
+		return
 	}
 
 	// Return result
@@ -102,7 +103,8 @@ func multiply(c *gin.Context) {
 	// Call business logic
 	response, error := services.Multiply(x, y)
 	if error != nil {
-		c.IndentedJSON(http.StatusBadRequest, error);
+		c.IndentedJSON(http.StatusBadRequest, gin.H{ "message": error.Error() });
+		return
 	}
 
 	// Return result
@@ -128,7 +130,8 @@ func divide(c *gin.Context) {
 	// Call business logic
 	response, error := services.Divide(x, y)
 	if error != nil {
-		c.IndentedJSON(http.StatusBadRequest, error);
+		c.IndentedJSON(http.StatusBadRequest, gin.H{ "message": error.Error() });
+		return
 	}
 
 	// Return result
