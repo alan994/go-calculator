@@ -4,6 +4,7 @@ import (
 	"example/go-calculator/internal"
 	"fmt"
 	"log"
+	"os"
 	"strconv"
 	"time"
 
@@ -20,16 +21,31 @@ type CalculationResponse struct {
 	Cached 	bool		`json:"cached"`
 }
 
+func getRedisClient() (*redis.Client, error) {
+	dbName, _ := strconv.Atoi(os.Getenv("REDIS_DB"))
+	host := os.Getenv("REDIS_HOST")
+	password := os.Getenv("REDIS_PASSWORD")
+
+	if len(host) == 0 {
+		return nil, internal.NewErrorf("Redis host is undefined")
+	}
+
+	return redis.NewClient(&redis.Options{
+        Addr: host,
+        Password: password,
+        DB: dbName,
+    }), nil
+}
+
 func Add(x float64, y float64) (*CalculationResponse, error) {
 
 	cacheKey := fmt.Sprintf("ADD|%f|%f", x, y)
 	usedValueFromCache := true
 
-	client := redis.NewClient(&redis.Options{
-        Addr: "localhost:6379",
-        Password: "",
-        DB: 0,
-    })
+	client, error := getRedisClient()
+	if error != nil{
+		return nil, internal.WrapErrorf(error, "Connecting to redis failed")
+	}
 
 	var result float64;
 
@@ -70,11 +86,10 @@ func Subtract(x float64, y float64) (*CalculationResponse, error) {
 	cacheKey := fmt.Sprintf("SUBTRACT|%f|%f", x, y)
 	usedValueFromCache := true
 
-	client := redis.NewClient(&redis.Options{
-        Addr: "localhost:6379",
-        Password: "",
-        DB: 0,
-    })
+	client, error := getRedisClient()
+	if error != nil{
+		return nil, internal.WrapErrorf(error, "Connecting to redis failed")
+	}
 
 	var result float64;
 
@@ -114,11 +129,10 @@ func Multiply(x float64, y float64) (*CalculationResponse, error) {
 	cacheKey := fmt.Sprintf("MULTIPLY|%f|%f", x, y)
 	usedValueFromCache := true
 
-	client := redis.NewClient(&redis.Options{
-        Addr: "localhost:6379",
-        Password: "",
-        DB: 0,
-    })
+	client, error := getRedisClient()
+	if error != nil{
+		return nil, internal.WrapErrorf(error, "Connecting to redis failed")
+	}
 
 	var result float64;
 
@@ -163,11 +177,10 @@ func Divide(x float64, y float64) (*CalculationResponse, error) {
 	cacheKey := fmt.Sprintf("DIVIDE|%f|%f", x, y)
 	usedValueFromCache := true
 
-	client := redis.NewClient(&redis.Options{
-        Addr: "localhost:6379",
-        Password: "",
-        DB: 0,
-    })
+	client, error := getRedisClient()
+	if error != nil{
+		return nil, internal.WrapErrorf(error, "Connecting to redis failed")
+	}
 
 	var result float64;
 

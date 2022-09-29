@@ -25,7 +25,7 @@ func main() {
 	router.GET("/multiply/:x/:y", multiply)
 	router.GET("/divide/:x/:y", divide)
 
-	router.Run("localhost:8080")
+	router.Run("0.0.0.0:8080")
 
 }
 
