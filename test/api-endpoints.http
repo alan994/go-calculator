@@ -1,0 +1,53 @@
+GET http://localhost:8080/add?x=2&y=5
+
+###
+
+GET http://localhost:8080/add?x=2&y=5.5
+
+###
+
+GET http://localhost:8080/add?x=2.5&y=5.5
+
+###
+
+GET http://localhost:8080/add?x=5&y=abc
+
+###
+
+GET http://localhost:8080/subtract?x=2&y=5
+
+###
+
+GET http://localhost:8080/subtract?x=2&y=5.5
+
+###
+
+GET http://localhost:8080/subtract?x=2.5&y=5.5
+
+###
+
+GET http://localhost:8080/multiply?x=2&y=5
+
+###
+
+GET http://localhost:8080/multiply?x=2&y=5.5
+
+###
+
+GET http://localhost:8080/multiply?x=2.5&y=5.5
+
+###
+
+GET http://localhost:8080/divide?x=2&y=5
+
+###
+
+GET http://localhost:8080/divide?x=2&y=5.5
+
+###
+
+GET http://localhost:8080/divide?x=2.5&y=5.5
+
+###
+
+GET http://localhost:8080/divide?x=5&y=0
