@@ -11,7 +11,6 @@ import (
 	"github.com/go-redis/redis"
 )
 
-var cacheDuration, _ = time.ParseDuration("20s")
 
 type CalculationResponse struct {
 	Action 	string 		`json:"action"`
@@ -58,7 +57,7 @@ func Add(x float64, y float64) (*CalculationResponse, error) {
 	if !usedValueFromCache {
 		result = x + y
 
-		err := client.Set(cacheKey, result, cacheDuration).Err()
+		err := client.Set(cacheKey, result, 1*time.Minute).Err()
 		if err != nil {
 			log.Println("Error: Failed to save result to cache", err)
 		}
@@ -101,8 +100,7 @@ func Subtract(x float64, y float64) (*CalculationResponse, error) {
 
 	if !usedValueFromCache {
 		result = x - y
-		cacheDuration, _ := time.ParseDuration("20s")
-		err := client.Set(cacheKey, result, cacheDuration).Err()
+		err := client.Set(cacheKey, result, 1*time.Minute).Err()
 		if err != nil {
 			log.Println("Error: Failed to save result to cache", err)
 		}
@@ -144,8 +142,7 @@ func Multiply(x float64, y float64) (*CalculationResponse, error) {
 
 	if !usedValueFromCache {
 		result = x * y
-		cacheDuration, _ := time.ParseDuration("20s")
-		err := client.Set(cacheKey, result, cacheDuration).Err()
+		err := client.Set(cacheKey, result, 1*time.Minute).Err()
 		if err != nil {
 			log.Println("Error: Failed to save result to cache", err)
 		}
@@ -192,8 +189,7 @@ func Divide(x float64, y float64) (*CalculationResponse, error) {
 
 	if !usedValueFromCache {
 		result = x / y
-		cacheDuration, _ := time.ParseDuration("20s")
-		err := client.Set(cacheKey, result, cacheDuration).Err()
+		err := client.Set(cacheKey, result, 1*time.Minute).Err()
 		if err != nil {
 			log.Println("Error: Failed to save result to cache", err)
 		}
