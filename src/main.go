@@ -20,10 +20,10 @@ type CalculationResponse struct {
 func main() {
 	router := gin.Default()
 
-	router.GET("/add/:x/:y", add)
-	router.GET("/subtract/:x/:y", subtract)
-	router.GET("/multiply/:x/:y", multiply)
-	router.GET("/divide/:x/:y", divide)
+	router.GET("/add", add)
+	router.GET("/subtract", subtract)
+	router.GET("/multiply", multiply)
+	router.GET("/divide", divide)
 
 	router.Run("0.0.0.0:8080")
 
@@ -31,14 +31,14 @@ func main() {
 
 func add(c *gin.Context) {
 	// Parse input parameters from HTTP request
-	x, err := strconv.ParseFloat(c.Param("x"), 64)
+	x, err := strconv.ParseFloat(c.Query("x"), 64)
 	if err != nil {
 		log.Println("Error: ", err)
 		c.IndentedJSON(http.StatusBadRequest, gin.H{ "message": "X is required and it's need to be a number" });
 		return
 	}
 
-	y, err := strconv.ParseFloat(c.Param("y"), 64)
+	y, err := strconv.ParseFloat(c.Query("y"), 64)
 	if err != nil {
 		log.Println("Error: ", err)
 		c.IndentedJSON(http.StatusBadRequest, gin.H{ "message": "Y is required and it's need to be a number" });
@@ -58,14 +58,14 @@ func add(c *gin.Context) {
 
 func subtract(c *gin.Context) {
 	// Parse input parameters from HTTP request
-	x, err := strconv.ParseFloat(c.Param("x"), 64)
+	x, err := strconv.ParseFloat(c.Query("x"), 64)
 	if err != nil {
 		log.Println("Error: ", err)
 		c.IndentedJSON(http.StatusBadRequest, gin.H{ "message": "X is required and it's need to be a number" });
 		return
 	}
 
-	y, err := strconv.ParseFloat(c.Param("y"), 64)
+	y, err := strconv.ParseFloat(c.Query("y"), 64)
 	if err != nil {
 		log.Println("Error: ", err)
 		c.IndentedJSON(http.StatusBadRequest, gin.H{ "message": "Y is required and it's need to be a number" });
@@ -86,14 +86,14 @@ func subtract(c *gin.Context) {
 
 func multiply(c *gin.Context) {
 	// Parse input parameters from HTTP request
-	x, err := strconv.ParseFloat(c.Param("x"), 64)
+	x, err := strconv.ParseFloat(c.Query("x"), 64)
 	if err != nil {
 		log.Println("Error: ", err)
 		c.IndentedJSON(http.StatusBadRequest, gin.H{ "message": "X is required and it's need to be a number" });
 		return
 	}
 
-	y, err := strconv.ParseFloat(c.Param("y"), 64)
+	y, err := strconv.ParseFloat(c.Query("y"), 64)
 	if err != nil {
 		log.Println("Error: ", err)
 		c.IndentedJSON(http.StatusBadRequest, gin.H{ "message": "Y is required and it's need to be a number" });
@@ -113,14 +113,14 @@ func multiply(c *gin.Context) {
 
 func divide(c *gin.Context) {
 	// Parse input parameters from HTTP request
-	x, err := strconv.ParseFloat(c.Param("x"), 64)
+	x, err := strconv.ParseFloat(c.Query("x"), 64)
 	if err != nil {
 		log.Println("Error: ", err)
 		c.IndentedJSON(http.StatusBadRequest, gin.H{ "message": "X is required and it's need to be a number" });
 		return
 	}
 
-	y, err := strconv.ParseFloat(c.Param("y"), 64)
+	y, err := strconv.ParseFloat(c.Query("y"), 64)
 	if err != nil {
 		log.Println("Error: ", err)
 		c.IndentedJSON(http.StatusBadRequest, gin.H{ "message": "Y is required and it's need to be a number" });
